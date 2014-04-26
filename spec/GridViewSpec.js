@@ -1,4 +1,4 @@
-var init = require('../js/GridView').init;
+var GridView = require('../js/GridView');
 
 describe("GridView", function() {
     // canvas html element mock
@@ -16,23 +16,23 @@ describe("GridView", function() {
 
     describe("init", function() {
         it("should set canvas size properties", function() {
-            init(canvas, {size:20, scale:10});
+            new GridView(canvas, {size:20, scale:10});
             expect(canvas.width).toBe(201);
             expect(canvas.width).toBe(201);
         });
         it("should use default canvas size properties: {size:10, scale:10}", function() {
-            init(canvas);
+            new GridView(canvas);
             expect(canvas.width).toBe(101);
             expect(canvas.width).toBe(101);
         });
         it("should set canvas position properties", function() {
-            init(canvas, {positionLeft:'50px', positionTop:'30px'});
+            new GridView(canvas, {positionLeft:'50px', positionTop:'30px'});
             expect(canvas.style.left).toBe('50px');
             expect(canvas.style.top).toBe('30px');
             expect(canvas.style.position).toBe('absolute');
         });
         it("should use default canvas position properties: {positionLeft:'0px', positionTop:'0px'}", function() {
-            init(canvas);
+            new GridView(canvas);
             expect(canvas.style.left).toBe('0px');
             expect(canvas.style.top).toBe('0px');
             expect(canvas.style.position).toBe('absolute');
@@ -42,7 +42,7 @@ describe("GridView", function() {
         var grid;
         var clickedCell;
         beforeEach(function(){
-            grid = init(canvas, {size:20, scale:10});
+            grid = new GridView(canvas, {size:20, scale:10});
             clickedCell = null;
             grid.onCellClick(function(cell) {
                 clickedCell = cell;

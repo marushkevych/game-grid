@@ -1,8 +1,10 @@
 var _ = require('underscore');
-exports.init = function(canvas, userConfig) {
 
+module.exports = GridView;
+function GridView(canvas, userConfig) {
+    var self = this;
     // TODO make border width configurable
-    
+
     var config = {
         size: 10,
         scale: 10,
@@ -11,16 +13,17 @@ exports.init = function(canvas, userConfig) {
         gridStyle: "#eee",
         borderStyle: "#bbb"
     };
-
-    var onCellClickHandler;
-
     // aply user config
     _.extend(config, userConfig);
 
+    this.config = config;
+    this.canvas = canvas;
+
+
     // init canvas
-    var length = config.size * config.scale;
-    canvas.width = length + 1;
-    canvas.height = length + 1;
+    this.length = config.size * config.scale;
+    canvas.width = this.length + 1;
+    canvas.height = this.length + 1;
     canvas.style.left = config.positionLeft;
     canvas.style.top = config.positionTop;
     canvas.style.position = "absolute";
@@ -29,8 +32,8 @@ exports.init = function(canvas, userConfig) {
 
     function canvasClick(e) {
         // get cell object and call onCellClick handler
-        if (onCellClickHandler)
-            onCellClickHandler(getClickedCell(e));
+        if (self.onCellClickHandler)
+            self.onCellClickHandler(getClickedCell(e));
     }
 
     function getClickedCell(e) {
@@ -68,58 +71,58 @@ exports.init = function(canvas, userConfig) {
             cellY += 1;
         return {x: cellX, y: cellY};
     }
+}
 
-    function paintGrid() {
-        var context = canvas.getContext("2d");
-        
-        
-        // vertical
-        for (var x = config.scale; x <= length - config.scale; x += config.scale) {
-            context.moveTo(x + 0.5, 0);
-            context.lineTo(x + 0.5, length);
-        }
+GridView.prototype.onCellClick = function(handler) {
+    this.onCellClickHandler = handler;
+};
 
-        // horisontal
-        for (var y = config.scale; y <= length - config.scale; y += config.scale) {
-            context.moveTo(0, y + 0.5);
-            context.lineTo(length, y + 0.5);
-        }
+GridView.prototype.fillCell = function(cell) {
+    var context = this.canvas.getContext("2d");
+    var s = this.config.scale;
+    context.fillRect(cell.x * s - s + 1, cell.y * s - s + 1, s - 1, s - 1);
+};
 
-        context.strokeStyle = config.gridStyle;
-        context.stroke();
-        
-        
-        // border
-        context.beginPath();
-        context.moveTo(0.5, 0);
-        context.lineTo(0.5, length);        
-        context.moveTo(length + 0.5, 0);
-        context.lineTo(length + 0.5, length);  
-        
-        context.moveTo(0, 0.5);
-        context.lineTo(length, 0.5);        
-        context.moveTo(0, length + 0.5);
-        context.lineTo(length, length + 0.5);        
-        
-        
-        context.strokeStyle = config.borderStyle;
-        context.stroke();
+GridView.prototype.clearCell = function(cell) {
+    var context = this.canvas.getContext("2d");
+    var s = this.config.scale;
+    context.clearRect(cell.x * s - s + 1, cell.y * s - s + 1, s - 1, s - 1);
+};
+
+
+GridView.prototype.paintGrid = function() {
+    var context = this.canvas.getContext("2d");
+
+
+    // vertical
+    for (var x = this.config.scale; x <= this.length - this.config.scale; x += this.config.scale) {
+        context.moveTo(x + 0.5, 0);
+        context.lineTo(x + 0.5, this.length);
     }
 
-    return {
-        onCellClick: function(handler) {
-            onCellClickHandler = handler;
-        },
-        fillCell: function(cell) {
-            var context = canvas.getContext("2d");
-            var s = config.scale;
-            context.fillRect(cell.x * s - s + 1, cell.y * s - s + 1, s - 1, s - 1);
-        },
-        clearCell: function(cell) {
-            var context = canvas.getContext("2d");
-            var s = config.scale;
-            context.clearRect(cell.x * s - s + 1, cell.y * s - s + 1, s - 1, s - 1);
-        },
-        paintGrid: paintGrid
-    };
+    // horisontal
+    for (var y = this.config.scale; y <= this.length - this.config.scale; y += this.config.scale) {
+        context.moveTo(0, y + 0.5);
+        context.lineTo(this.length, y + 0.5);
+    }
+
+    context.strokeStyle = this.config.gridStyle;
+    context.stroke();
+
+
+    // border
+    context.beginPath();
+    context.moveTo(0.5, 0);
+    context.lineTo(0.5, this.length);
+    context.moveTo(this.length + 0.5, 0);
+    context.lineTo(this.length + 0.5, this.length);
+
+    context.moveTo(0, 0.5);
+    context.lineTo(this.length, 0.5);
+    context.moveTo(0, this.length + 0.5);
+    context.lineTo(this.length, this.length + 0.5);
+
+
+    context.strokeStyle = this.config.borderStyle;
+    context.stroke();
 };
