@@ -1,0 +1,32 @@
+{
+  "name": "game-grid",
+  "version": "0.0.1",
+  "description": "Reusable implementation of grid model and grid canvas view, that can be used for 2D board games",
+  "main": "js/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/marushkevych/game-grid.git"
+  },
+  "keywords": [
+    "grid",
+    "canvas",
+    "javascript",
+    "games"
+  ],
+  "author": "Andrey Marushkevych",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/marushkevych/game-grid/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-jasmine": "~0.6.3",
+    "grunt-watchify": "~0.1.0"
+  },
+  "dependencies": {
+    "underscore": "~1.6.0"
+  }
+}
