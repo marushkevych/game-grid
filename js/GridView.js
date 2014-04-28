@@ -8,8 +8,6 @@ function GridView(canvas, userConfig) {
     var config = {
         size: 10,
         scale: 10,
-        positionLeft: "0px",
-        positionTop: "0px",
         gridStyle: "#eee",
         borderStyle: "#bbb"
     };
@@ -24,9 +22,6 @@ function GridView(canvas, userConfig) {
     this.length = config.size * config.scale;
     canvas.width = this.length + 1;
     canvas.height = this.length + 1;
-    canvas.style.left = config.positionLeft;
-    canvas.style.top = config.positionTop;
-    canvas.style.position = "absolute";
 
     canvas.addEventListener("click", canvasClick, false);
 
