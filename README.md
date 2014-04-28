@@ -7,10 +7,11 @@ This initial version contains basic canvas grid view and model able to identify 
 See http://github.com/marushkevych/game-of-life for usage examples.
 
 ```js
-var size = 10;
 var grid = require('game-grid');
-var view = new grid.GridView(canvas, {size: size, scale: 7});
-var model = new grid.GridModel(size);
+var canvas = document.getElementById("canvas");
+
+var view = new grid.GridView(canvas, {size: 10, scale: 7});
+var model = new grid.GridModel(10);
 
 view.onCellClick(function(cell) {
     var modelCell = model.getCell(cell.x, cell.y);
