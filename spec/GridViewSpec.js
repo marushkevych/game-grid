@@ -25,18 +25,6 @@ describe("GridView", function() {
             expect(canvas.width).toBe(101);
             expect(canvas.width).toBe(101);
         });
-        it("should set canvas position properties", function() {
-            new GridView(canvas, {positionLeft:'50px', positionTop:'30px'});
-            expect(canvas.style.left).toBe('50px');
-            expect(canvas.style.top).toBe('30px');
-            expect(canvas.style.position).toBe('absolute');
-        });
-        it("should use default canvas position properties: {positionLeft:'0px', positionTop:'0px'}", function() {
-            new GridView(canvas);
-            expect(canvas.style.left).toBe('0px');
-            expect(canvas.style.top).toBe('0px');
-            expect(canvas.style.position).toBe('absolute');
-        });
     });
     describe("onCellClik event", function() {
         var grid;

@@ -44,5 +44,23 @@ describe("GridModel", function() {
             expect(neighbors[2]).toEqual(new Cell(2,3));
         });
     });
+    describe('getRandomCell()', function(){
+        it('should generate cells within one cell grid', function(){
+            var model = new GridModel(1);
+            var random = model.getRandomCell();
+            expect(random.x).toBe(1);
+            expect(random.y).toBe(1);
+        });
+        it('should generate cells within grid', function(){
+            var model = new GridModel(2);
+            for(var i = 0; i<10; i++){
+                var random = model.getRandomCell();
+                expect(random.x).toBeLessThan(3);
+                expect(random.x).toBeGreaterThan(0);
+                expect(random.y).toBeLessThan(3);
+                expect(random.y).toBeGreaterThan(0);
+            }
+        });
+    });
 });
 

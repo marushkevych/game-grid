@@ -25,6 +25,12 @@ GridModel.prototype.getCell = function(x,y){
     return cell;
 };
 
+GridModel.prototype.getRandomCell = function(exceptions){
+    var x = Math.floor(Math.random() * this.size) + 1;
+    var y = Math.floor(Math.random() * this.size) + 1;
+    return this.getCell(x,y);
+};
+
 GridModel.prototype.getNeighbors = function(x,y){
     var allNeighbors = [
         this.getNextCellNorthWest(x,y),
