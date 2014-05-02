@@ -85,7 +85,7 @@ GridView.prototype.clearCell = function(cell) {
 };
 
 
-GridView.prototype.paintGrid = function() {
+GridView.prototype.paintGrid = function(style) {
     var context = this.canvas.getContext("2d");
 
 
@@ -101,11 +101,16 @@ GridView.prototype.paintGrid = function() {
         context.lineTo(this.length, y + 0.5);
     }
 
-    context.strokeStyle = this.config.gridStyle;
+    context.strokeStyle = style || this.config.gridStyle;
     context.stroke();
 
-
     // border
+    this.paintBorder(style || this.config.gridStyle);
+};
+
+GridView.prototype.paintBorder = function(style){
+    var context = this.canvas.getContext("2d");
+    
     context.beginPath();
     context.moveTo(0.5, 0);
     context.lineTo(0.5, this.length);
@@ -118,6 +123,7 @@ GridView.prototype.paintGrid = function() {
     context.lineTo(this.length, this.length + 0.5);
 
 
-    context.strokeStyle = this.config.borderStyle;
+    context.strokeStyle = style || this.config.borderStyle;
     context.stroke();
-};
+    
+}

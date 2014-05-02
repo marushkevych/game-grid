@@ -45,13 +45,13 @@ describe("GridModel", function() {
         });
     });
     describe('getRandomCell()', function(){
-        it('should generate cells within one cell grid', function(){
+        it('should generate cell within one cell grid', function(){
             var model = new GridModel(1);
             var random = model.getRandomCell();
             expect(random.x).toBe(1);
             expect(random.y).toBe(1);
         });
-        it('should generate cells within grid', function(){
+        it('should generate cell within grid', function(){
             var model = new GridModel(2);
             for(var i = 0; i<10; i++){
                 var random = model.getRandomCell();
@@ -59,6 +59,17 @@ describe("GridModel", function() {
                 expect(random.x).toBeGreaterThan(0);
                 expect(random.y).toBeLessThan(3);
                 expect(random.y).toBeGreaterThan(0);
+            }
+        });
+        it('should not generate cell from provided exceptions array', function(){
+            var model = new GridModel(2);
+            model.getCell(2,1).isValid = true;
+            for(var i = 0; i<10; i++){
+                var random = model.getRandomCell(function(cell){
+                    return cell.isValid;
+                });
+                expect(random.x).toBe(2);
+                expect(random.y).toBe(1);
             }
         });
     });

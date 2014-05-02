@@ -25,10 +25,18 @@ GridModel.prototype.getCell = function(x,y){
     return cell;
 };
 
-GridModel.prototype.getRandomCell = function(exceptions){
-    var x = Math.floor(Math.random() * this.size) + 1;
-    var y = Math.floor(Math.random() * this.size) + 1;
-    return this.getCell(x,y);
+GridModel.prototype.getRandomCell = function(isValid){
+    var self = this;
+    function random(){
+        return Math.floor(Math.random() * self.size) + 1;
+    }
+    function generateRandomCell(){
+        var x = random();
+        var y = random();
+        var cell = self.getCell(x,y);
+        return isValid == null || isValid(cell) ? cell : generateRandomCell();
+    }
+    return generateRandomCell();
 };
 
 GridModel.prototype.getNeighbors = function(x,y){
