@@ -88,7 +88,7 @@ GridView.prototype.clearCell = function(cell) {
 GridView.prototype.paintGrid = function(style) {
     var context = this.canvas.getContext("2d");
 
-
+    context.beginPath();
     // vertical
     for (var x = this.config.scale; x <= this.length - this.config.scale; x += this.config.scale) {
         context.moveTo(x + 0.5, 0);
