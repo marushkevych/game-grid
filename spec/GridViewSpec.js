@@ -10,6 +10,9 @@ describe("GridView", function() {
             eventHandlers: {},
             addEventListener: function(event, handler){
                 this.eventHandlers[event] = handler;
+            },
+            getBoundingClientRect: function() {
+                return { left: this.offsetLeft, top: this.offsetTop }
             }
         };
     });

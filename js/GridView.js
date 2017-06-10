@@ -50,8 +50,10 @@ function GridView(canvas, userConfig) {
 //      console.log(canvas.offsetLeft)
 //      console.log(canvas.offsetTop)
 
-        x -= canvas.offsetLeft;
-        y -= canvas.offsetTop;
+//        x -= canvas.offsetLeft;
+//        y -= canvas.offsetTop;
+        x -= canvas.getBoundingClientRect().left;
+        y -= canvas.getBoundingClientRect().top;
 
 
         // ajust for border
